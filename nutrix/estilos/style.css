@@ -1,0 +1,50 @@
+@media (max-width: 550px) {
+	img {
+		width: 100%;
+		height: auto;
+	}
+}
+
+body{
+	background: linear-gradient(to right, green, greenyellow);
+}
+.login-btn {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 20px 40px;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  font-size: 16px;
+  margin: 0 auto;
+  margin-top: 20px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.cadastro-btn {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 20px 40px;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  font-size: 16px;
+  margin: 0 auto;
+  margin-top: 20px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.logo{
+	width: 200px;
+}
+.container{
+	margin-top: 15rem;
+}
+.entre-link{
+  text-decoration: none;
+}
+.cadastre-link{
+  text-decoration: none;
+}
