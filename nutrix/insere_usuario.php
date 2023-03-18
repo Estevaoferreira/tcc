@@ -1,16 +1,6 @@
 <?php
 // estabelece a conexão com o banco de dados
-$servername = "localhost";
-$username = "seu_usuario";
-$password = "sua_senha";
-$dbname = "seu_banco_de_dados";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// verifica se a conexão foi bem sucedida
-if ($conn->connect_error) {
-  die("Conexão falhou: " . $conn->connect_error);
-}
+require_once "conexao.php";
 
 // obtém os valores do CPF, nome, telefone, e-mail e senha do formulário
 $cpf = $_POST["cpf"];
@@ -19,17 +9,21 @@ $telefone = $_POST["telefone"];
 $email = $_POST["email"];
 $senha = $_POST["senha"];
 
-// cria a instrução SQL INSERT
-$sql = "INSERT INTO clientes (cpf, nome, telefone, email, senha)
-VALUES ('$cpf', '$nome', '$telefone', '$email', '$senha')";
+// Gera um hash seguro para a senha
+$senha_hash = password_hash($senha, PASSWORD_DEFAULT);
 
-// executa a instrução SQL
-if ($conn->query($sql) === TRUE) {
-  echo "Dados inseridos com sucesso.";
+// cria a instrução SQL INSERT
+// Insere um novo registro na tabela "cliente"
+$sql = "INSERT INTO cliente (cpf, nome, telefone, email, senha) 
+VALUES ('$cpf', '$nome', '$telefone', '$email', '$senha_hash')";
+
+if (mysqli_query($conexao, $sql)) {
+    echo "Novo cliente adicionado com sucesso!";
+    header("Location: dashboard.php");
 } else {
-  echo "Erro ao inserir dados: " . $conn->error;
+    echo "Erro ao adicionar novo cliente: " . mysqli_error($conexao);
 }
 
-// fecha a conexão com o banco de dados
-$conn->close();
+// Fecha a conexão com o banco de dados
+mysqli_close($conexao);
 ?>

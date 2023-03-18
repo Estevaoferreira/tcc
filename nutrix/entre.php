@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,7 +39,7 @@
 			background-color: #f2f2f2;
 		}
 
-		button[type=button] {
+		button[type=submit] {
 			width: 100%;
 			padding: 10px;
 			border: none;
@@ -46,46 +50,34 @@
 			cursor: pointer;
 		}
 
-		button[type=button]:hover {
+		button[type=submit]:hover {
 			background-color: #45a049;
+		}
+		.home-icon {
+			position: fixed;
+			top: 20px;
+			left: 20px;
+			font-size: 30px;
+			color: #000;
+			text-decoration: none;
 		}
 	</style>
 </head>
 <body>
+	<a href="home.php" class="home-icon">
+		<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16" style="transform: scale(1.4); color: white;">
+			<path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z"/>
+			<path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6Z"/>
+		</svg>
+	</a>
+
 	<div class="login-form">
 		<h1>Login</h1>
-		<form>
-			<input type="text" placeholder="Usuário" id="username">
-			<input type="password" placeholder="Senha" id="password">
-			<button type="button" onclick="login()">Entrar</button>
+		<form action="valida_login.php" method="POST">
+			<input type="text" placeholder="email" name="email" id="username" required>
+			<input type="password" placeholder="senha" name="senha" id="senha" required>
+			<button type="submit" value="Entrar">Entrar</button>
 		</form>
-		
-		<script>
-			function login() {
-        // obter os valores do usuário e senha inseridos
-				var username = document.getElementById("username").value;
-				var password = document.getElementById("password").value;
-
-        // enviar dados para o servidor
-				var xhr = new XMLHttpRequest();
-				xhr.open("POST", "valida_login.php", true);
-				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-				xhr.onreadystatechange = function() {
-					if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-            // resposta do servidor
-						var response = this.responseText;
-						if (response === "OK") {
-              // redirecionar para a página de perfil
-							window.location.href = "perfil.html";
-						} else {
-              // exibir mensagem de erro
-							alert("Login inválido. Tente novamente.");
-						}
-					}
-				};
-				xhr.send("username=" + username + "&password=" + password);
-			}
-		</script>
 	</div>
 </body>
 </html>

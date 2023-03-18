@@ -7,7 +7,8 @@
 	<link rel="shortcut icon" type="image/x-icon" href="img/icones/todos/favicon.ico">
 	<link rel="stylesheet" type="text/css" href="estilos/style.css">
 	<link href="estilos/bootstrap-exemplos/assets/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
+
+</head> 
 <body>
 	<main class="container">
 		<div align="center">
