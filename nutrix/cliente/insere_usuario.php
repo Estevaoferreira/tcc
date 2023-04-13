@@ -1,6 +1,6 @@
 <?php
 // estabelece a conexão com o banco de dados
-require_once "conexao.php";
+require_once "../conexao.php";
 
 // obtém os valores do CPF, nome, telefone, e-mail e senha do formulário
 $cpf = $_POST["cpf"];

@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Album Bootstrap</title>
-  <link rel="shortcut icon" type="image/x-icon" href="img/icones/todos/favicon.ico">
-  <link rel="stylesheet" type="text/css" href="estilos/estilo.css">
-  <link href="estilos/bootstrap-exemplos/assets/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="shortcut icon" type="image/x-icon" href="../img/icones/todos/favicon.ico">
+  <link rel="stylesheet" type="text/css" href="../estilos/estilo.css">
+  <link href="../estilos/bootstrap-exemplos/assets/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     html,
     body {
@@ -106,11 +106,11 @@
 <body>
   <header>
     <div class="logo">
-      <img src="img/icones/meu-favicon.png" alt="Nutrix Logo">
+      <img src="../img/icones/meu-favicon.png" alt="Nutrix Logo">
       <h1>Nutrix</h1>
     </div>
     <div class="user">
-      <a href="#"><img id="logo" src="img/icones/chat-off-icon.png"></a>
+      <a href="#"><img id="logo" src="../img/icones/chat-off-icon.png"></a>
       <a href="outra_pagina.html">Usuário</a>
     </div>
   </header>
@@ -128,7 +128,7 @@
 
             <?php
               // Conectar ao banco de dados
-              require_once "conexao.php";
+              require_once "../conexao.php";
 
               // Verificar a conexão
               if (!$conexao) {
@@ -144,7 +144,7 @@
                 echo '
                 <div class="col">
                   <div class="card shadow-sm">
-                    <img src="' . $row['cpf'] . '" class="card-img-top" alt="' . $row['nome'] . '">
+                    <img src="' . $row['cnpj'] . '" class="card-img-top" alt="' . $row['nome'] . '">
                     <div class="card-body">
                       <h5 class="card-title">' . $row['nome'] . '</h5>
                       <p class="card-text">' . $row['email'] . '</p>
@@ -171,10 +171,12 @@
   <footer>
     <!-- Rodapé aqui -->
   </footer>
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <!--<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper-core.min.js" integrity="sha384-QhJtrlyXT+YfjA/ov0U+O6wZi6U68MZkUmmI9Q0T3TGRnp6YOsJlLCFNYFOIQWIH" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/js/bootstrap.min.js" integrity="sha384-2S6U8By6k/gz6oAe6TmKa4+lXbvo0c0FjxFdOtZ2S7C8wYnxUksjAaJHvmNGV7LX" crossorigin="anonymous"></script>
-  <!-- Adicione no final do arquivo HTML, antes do fechamento do body -->
+  
+  Adicione no final do arquivo HTML, antes do fechamento do body 
+  
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"
   integrity="sha384-0J8RNpvvoHGPmvoBPs+OqQ3fURbXVjYYpO7bFXyham6KLrO6zFyEN5kNQ=="
   crossorigin="anonymous"></script>
@@ -198,6 +200,7 @@
     });
     });
   </script>
+-->
 
 </body>
 </html>
