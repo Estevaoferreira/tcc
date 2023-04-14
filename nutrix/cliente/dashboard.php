@@ -111,7 +111,7 @@
     </div>
     <div class="user">
       <a href="#"><img id="logo" src="../img/icones/chat-off-icon.png"></a>
-      <a href="outra_pagina.html">Usuário</a>
+      <a href="perfil_cliente.php">Usuário</a>
     </div>
   </header>
   <main>
