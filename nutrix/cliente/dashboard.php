@@ -101,6 +101,7 @@
       font-size: 16px;
       margin-left: 10px;
     }
+
   </style>
 </head>
 <body>
@@ -110,8 +111,7 @@
       <h1>Nutrix</h1>
     </div>
     <div class="user">
-      <a href="#"><img id="logo" src="../img/icones/chat-off-icon.png"></a>
-      <a href="perfil_cliente.php">Usuário</a>
+      <a href="perfil_cliente.php"> <img src="../img/icones/perfil.png"> </a>
     </div>
   </header>
   <main>
@@ -127,9 +127,10 @@
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 
             <?php
+            session_start();
+             $_SESSION['alteracao_dados_cliente'] = "";
               // Conectar ao banco de dados
               require_once "../conexao.php";
-
               // Verificar a conexão
               if (!$conexao) {
                 die('Erro ao conectar ao banco de dados: ' . mysqli_connect_error());
