@@ -1,0 +1,236 @@
+cliente{
+	cpf		int(11) primary_key
+	nome		varchar(50)	
+	telefone	int(11)
+	email		varchar(250)
+	senha		varchar(250)
+}
+
+favorito {
+	cpf		int(11)
+	cnpj		int(13)
+	cod_produto 	int(6)
+}	
+
+estabelecimento{
+	cnpj		int(13) primary_key
+	nome		varchar(50)
+	telefone	int(11)
+	email		varchar(250)
+	senha		varchar(250)
+	estado		varchar(2)
+	cidade		varchar(50)
+	bairro		varchar(50)
+	logradouro	varchar(50)
+	cep		int(9)
+	numero		int(6)
+	complemento	smaltext
+}
+
+produto{
+	cod_prod 	int(6)
+	nome		varchar(50)
+	tipo		varchar(50)
+	foto		blob
+	descr		varchar(100)
+	valor		decimal(6,2)
+	tabela_nutri	smalltext
+	composicao	smalltext
+	cnpj		int(13)
+}
+
+categoria{
+	cod_categoria	int(3) primary_key
+	nome		varchar(20)
+	cod_prod	int(6) foreing_key references (produto)
+}
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------
+
+
+
+
+CREATE TABLE cliente (
+  cpf int(11) primary key,
+  nome varchar(50),
+  telefone int(11),
+  email varchar(250),
+  senha varchar(250)
+);
+
+CREATE TABLE favorito (
+  cpf int(11),
+  cnpj int(13),
+  cod_produto int(6),
+  FOREIGN KEY (cpf) REFERENCES cliente(cpf),
+  FOREIGN KEY (cnpj) REFERENCES estabelecimento(cnpj),
+  FOREIGN KEY (cod_produto) REFERENCES produto(cod_prod)
+);
+
+CREATE TABLE estabelecimento (
+  cnpj int(13) primary key,
+  nome varchar(50),
+  telefone int(11),
+  email varchar(250),
+  senha varchar(250),
+  estado varchar(2),
+  cidade varchar(50),
+  bairro varchar(50),
+  logradouro varchar(50),
+  cep int(9),
+  numero int(6),
+  complemento tinytext
+);
+
+CREATE TABLE produto (
+  cod_prod int(6),
+  nome varchar(50),
+  tipo varchar(50),
+  foto blob,
+  descr varchar(100),
+  valor decimal(6,2),
+  tabela_nutri tinytext,
+  composicao tinytext,
+  cnpj int(13),
+  PRIMARY KEY (cod_prod),
+  FOREIGN KEY (cnpj) REFERENCES estabelecimento(cnpj)
+);
+
+CREATE TABLE categoria (
+  cod_categoria int(3) primary key,
+  nome varchar(20),
+  cod_prod int(6),
+  FOREIGN KEY (cod_prod) REFERENCES produto(cod_prod)
+);
+
+
+-----------------------------------------------------------------
+
+
+
+CREATE TABLE cliente (
+  cpf int(11),
+  nome varchar(50),
+  telefone int(11),
+  email varchar(250),
+  senha varchar(250),
+  PRIMARY KEY (cpf)
+);
+
+CREATE TABLE favorito (
+  cpf int(11),
+  cnpj int(13),
+  cod_produto int(6)
+);
+
+CREATE TABLE estabelecimento (
+  cnpj int(13) ,
+  nome varchar(50),
+  telefone int(11),
+  email varchar(250),
+  senha varchar(250),
+  estado varchar(2),
+  cidade varchar(50),
+  bairro varchar(50),
+  logradouro varchar(50),
+  cep int(9),
+  numero int(6),
+  complemento tinytext,
+  PRIMARY KEY (cnpj)
+);
+
+CREATE TABLE produto (
+  cod_prod int(6),
+  nome varchar(50),
+  tipo varchar(50),
+  foto blob,
+  descr varchar(100),
+  valor decimal(6,2),
+  tabela_nutri tinytext,
+  composicao tinytext,
+  cnpj int(13),
+  PRIMARY KEY (cod_prod)
+);
+
+CREATE TABLE categoria (
+  cod_categoria int(3),
+  nome varchar(20),
+  cod_prod int(6),
+  PRIMARY KEY (cod_categoria)
+);
+--------------------------------------
+
+
+
+CREATE DATABASE IF NOT EXISTS nutrix;
+
+USE nutrix;
+
+CREATE TABLE cliente (
+  cpf INT(11) PRIMARY KEY,
+  nome VARCHAR(50),
+  telefone INT(11),
+  email VARCHAR(250),
+  senha VARCHAR(250)
+)ENGINE = innodb;
+
+CREATE TABLE estabelecimento (
+  cnpj INT(13) PRIMARY KEY,
+  nome VARCHAR(50),
+  telefone INT(11),
+  email VARCHAR(250),
+  senha VARCHAR(250),
+  estado VARCHAR(2),
+  cidade VARCHAR(50),
+  bairro VARCHAR(50),
+  logradouro VARCHAR(50),
+  cep INT(9),
+  numero INT(6),
+  complemento TEXT
+)ENGINE = innodb;
+
+CREATE TABLE produto(
+  cod INT(6) PRIMARY KEY,
+  nome VARCHAR(50),
+  tipo VARCHAR(50),
+  foto BLOB,
+  descricao VARCHAR(50),
+  valor DECIMAL (6,2),
+  tabela_nutri TINYTEXT,
+  composicao TINYTEXT,
+  cnpj_estabelecimento INT(13),
+  cod_categoria INT(3),
+  FOREIGN KEY(cnpj_estabelecimento) REFERENCES estabelecimento(cnpj),
+  FOREIGN KEY(cod_categoria) REFERENCES categoria(cod)	
+)ENGINE = innodb;
+
+CREATE TABLE favorito (
+  cpf_cliente INT(11),
+  cnpj_estabelecimento INT(13),
+  cod_prod INT(6),
+  PRIMARY KEY(cpf_cliente, cnpj_estabelecimento),
+  FOREIGN KEY(cpf_cliente) REFERENCES cliente(cpf),
+  FOREIGN KEY(cnpj_estabelecimento) REFERENCES estabelecimento(cnpj),
+  FOREIGN KEY(cod_prod) REFERENCES produto(cod)
+)ENGINE = innodb;
+
+CREATE TABLE categoria(
+  cod INT(3) PRIMARY KEY,
+  nome VARCHAR(20)
+)ENGINE = innodb;
+
+
+
+
+
+
+

@@ -176,7 +176,7 @@
 		</form>
 	</div>
 	<script>
-		function validarCNPJ(cnpj) {
+		/*function validarCNPJ(cnpj) {
 			cnpj = cnpj.replace(/[^\d]+/g,'');
 
 			if (cnpj.length !== 14) {

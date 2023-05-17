@@ -6,20 +6,21 @@ if(isset($_POST["email"]) && isset($_POST["senha"])) {
     $email = $_POST["email"];
     $senha = $_POST["senha"];
 
-    $query = "SELECT senha, nome FROM estabelecimento WHERE email = ?";
+    $query = "SELECT senha, nome, cnpj FROM estabelecimento WHERE email = ?";
     $stmt = $conexao->prepare($query);
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $stmt->store_result();
 
     if ($stmt->num_rows > 0) {
-        $stmt->bind_result($senha_criptografada, $nome);
+        $stmt->bind_result($senha_criptografada, $nome, $cnpj);
         $stmt->fetch();
 
         if (password_verify($senha, $senha_criptografada)) {
             // A senha fornecida pelo usuário corresponde à senha criptografada armazenada
             // Faça o login do usuário aqui
-            $_SESSION['nome'] = $nome;
+            $_SESSION['cnpj'] = $cnpj;
+            $_SESSION['login'] = true;
             header("Location: dashboard_estabelecimento.php");
             exit();
         } else {
