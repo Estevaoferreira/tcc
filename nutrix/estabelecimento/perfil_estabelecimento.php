@@ -18,16 +18,21 @@
       padding: 0;
     }
 
-    /* Estilo para o cabeçalho */
     header {
-      width: 100%;
-      top: 0;
-      position: fixed;
       background-color: white;
       color: black;
       padding: 20px;
       text-align: center;
     }
+
+    .home-icon {
+      width: 2rem;
+      margin-top: 1rem;
+     font-size: 30px;
+     color: #000;
+     text-decoration: none;
+   }
+
 
     /* Estilo para o formulário */
     form {
@@ -88,30 +93,70 @@
       text-shadow: none;
       text-decoration: underline;
     }
-    .home-icon {
-     position: fixed;
-     margin-top: 20px;
-     margin-left: 20px;
-     top: 0px;
-     left: 40px;
-     font-size: 30px;
-     color: #000;
-     text-decoration: none;
-   }
 
-   /* Estilo para o link de logout */
+   .sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+  }
 
+  .sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+  }
 
+  .sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
 
+  #main {
+    transition: margin-left .5s;
+    padding: 16px;
+    color: black;
+    display: flex;
+    justify-content: space-between;
+  }
 
-
-   /* Ajustes para dispositivos móveis */
-   @media only screen and (max-width: 600px) {
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
     header h1 {
       font-size: 24px;
     }
 
-    form {
+    .logout {
+      margin: 10px;
+    }
+    .home-icon {
+      width: 2rem;
+      margin-top: 1rem;
+     font-size: 30px;
+     color: #000;
+     text-decoration: none;
+   }
+   .home-icon img{
+    margin-top: 0;
+      width: 2rem;
+     font-size: 30px;
+     color: #000;
+     text-decoration: none;
+   }
+   form {
       margin: 10px;
     }
 
@@ -123,33 +168,26 @@
       border-radius: 5px;
       background-color: #f2f2f2;
     }
-
-    .logout {
-      margin: 10px;
-    }
-    .home-icon {
-     position: fixed;
-     top: -10px;
-     left: 5px;
-     font-size: 30px;
-     color: #000;
-     text-decoration: none;
-   }
  }
-
 
 </style>
 </head>
 <body style="background: #90ee90;">
   <header>
-    <h1>Perfil do usuário</h1>
-    <a href="dashboard_estabelecimento.php" class="home-icon">
-      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16" style="transform: scale(1.4); color: black;">
-       <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z"/>
-       <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6Z"/>
-     </svg>
-   </a>
- </header>
+    <div id="main" >
+      <span style="font-size:30px;cursor:pointer" class="home-icon" onclick="openNav()">
+        <img class="home-icon" src="../img/icones/icones-gerais/menu-burguer.png">
+      </span>
+      <h1 id="h1">Dados da conta</h1>
+    </div>
+    <div id="mySidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <a href="dashboard_estabelecimento.php">Dashboard</a>
+      <a href="perfil_estabelecimento.php">Dados de conta</a>
+      <a href="produtos.php">Produtos</a>
+      <a href="fecha_sessao.php">Sair</a>
+    </div>
+  </header>
  <?php
  require_once "../conexao.php";
  
@@ -181,23 +219,23 @@
 echo "<script>
 function sucesso() {
  alert('Alteração realizada com sucesso!');
- window.location.href = 'dashboard.php';
+ window.location.href = 'dashboard_estabelecimento.php';
 }
 function erro() {
  alert('Falha na alteração dos dados, tente novamente!');
  window.location.href = 'perfil_cliente.php';
 }
 </script>";
-if (isset($_SESSION['alteracao_dados_cliente']) && $_SESSION['alteracao_dados_cliente'] == "sucesso") {
+if (isset($_SESSION['alteracao_dados_estabelecimento']) && $_SESSION['alteracao_dados_estabelecimento'] == "sucesso") {
   echo "<script>sucesso();</script>";
   /*sleep(3);
-  unset($_SESSION['alteracao_dados_cliente']);
+  unset($_SESSION['alteracao_dados_estabelecimento']);
   header("Location: dashboard.php");*/
-}elseif (isset($_SESSION['alteracao_dados_cliente']) && $_SESSION['alteracao_dados_cliente'] == "erro") {
+}elseif (isset($_SESSION['alteracao_dados_estabelecimento']) && $_SESSION['alteracao_dados_estabelecimento'] == "erro") {
   echo "<script>erro();</script>";
   //sleep(3);
-  unset($_SESSION['alteracao_dados_cliente']);
-  header("Location: dashboard.php");
+  unset($_SESSION['alteracao_dados_estabelecimento']);
+  header("Location: dashboard_estabelecimento.php");
 }
 ?>
 
@@ -269,5 +307,18 @@ if (isset($_SESSION['alteracao_dados_cliente']) && $_SESSION['alteracao_dados_cl
 
    <button type="submit">Enviar</button>
  </form>
+ <script>
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "250px";
+      document.getElementById("main").style.marginLeft = "250px";
+      document.getElementById("h1").style.color = "white";
+    }
+
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+      document.getElementById("main").style.marginLeft= "0";
+      document.getElementById("h1").style.color = "Black";
+    }
+  </script>
 </body>
 </html>

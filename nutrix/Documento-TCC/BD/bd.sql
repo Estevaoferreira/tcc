@@ -1,64 +1,18 @@
-cliente{
-  cpf   int(11) primary_key
-  nome    varchar(50) 
-  telefone  int(11)
-  email   varchar(250)
-  senha   varchar(250)
-}
-
-favorito {
-  cpf   int(11)
-  cnpj    int(13)
-  cod_produto   int(6)
-} 
-
-estabelecimento{
-  cnpj    int(13) primary_key
-  nome    varchar(50)
-  telefone  int(11)
-  email   varchar(250)
-  senha   varchar(250)
-  estado    varchar(2)
-  cidade    varchar(50)
-  bairro    varchar(50)
-  logradouro  varchar(50)
-  cep   int(9)
-  numero    int(6)
-  complemento smaltext
-}
-
-produto{
-  cod_prod  int(6)
-  nome    varchar(50)
-  tipo    varchar(50)
-  foto    blob
-  descr   varchar(100)
-  valor   decimal(6,2)
-  tabela_nutri  smalltext
-  composicao  smalltext
-  cnpj    int(13)
-}
-
-categoria{
-  cod_categoria int(3) primary_key
-  nome    varchar(20)
-  cod_prod  int(6) foreing_key references (produto)
-}
 
 
+/*
+Tabela cliente com ligação 1 pra N com a tabela favoritos
+Tabela cliente com ligação N pra N com a tabela cliente_categoria
+Tabela estabelecimento com ligação N pra N com a tabela favorito
+Tabela estabelecimento com ligação 1 pra N com a tabela produto
+Tabela produto com ligação N pra N com a tabela produto_categoria
+Tabela produto com ligação N pra N com a tabela favorito
+Tabela categoria com ligação N pra N com a tabela produto_categoria
+Tabela categoria com ligação N pra N com a tabela cliente_categoria
+*/
 
 
-
-
-
-
-
-
--------------------------------------------
-
-
-
-
+/*------------------------------------------*/
 
 
 
@@ -103,7 +57,7 @@ CREATE TABLE estabelecimento (
 
 CREATE TABLE produto(
 
-  cod INT(6) PRIMARY KEY,
+  cod INT(6) PRIMARY KEY AUTO_INCREMENT,
   nome TINYTEXT,
   tipo TINYTEXT,
   foto BLOB,
@@ -117,20 +71,28 @@ CREATE TABLE produto(
 
 CREATE TABLE categoria(
 
-  cod INT(6) PRIMARY KEY,
+  cod INT(6) PRIMARY KEY AUTO_INCREMENT,
   nome TINYTEXT,
+  descricao TINYTEXT
+);
+
+CREATE TABLE cliente_categoria (
   cpf_cliente VARCHAR(14),
-  cod_prod INT(6)
+  cod_categoria INT(6),
+  PRIMARY KEY(cpf_cliente, cod_categoria)
+);
+
+
+CREATE TABLE produto_categoria (
+  cod_produto INT(6),
+  cod_categoria INT(6),
+  PRIMARY KEY(cod_produto, cod_categoria)
 );
 
 
 
 
 /*------------Alterações na tabela, adicionando as chaves estrangeiras----------------------------*/
-/*Tabela CLIENTE*/
-ALTER TABLE cliente ADD CONSTRAINT fk_cliente_cod_categoria
-FOREIGN KEY(cod_categoria) REFERENCES categoria(cod);
-
 
 /*Tabela FAVORITO*/
 ALTER TABLE favorito ADD CONSTRAINT fk_favorito_cpf_cliente
@@ -146,15 +108,35 @@ ALTER TABLE produto ADD CONSTRAINT fk_produto_cnpj_estabelecimento
 FOREIGN KEY(cnpj_estabelecimento) REFERENCES estabelecimento(cnpj);
 
 
-/*Tabela CATEGORIA*/
-ALTER TABLE categoria ADD CONSTRAINT fk_categoria_cpf_cliente
-FOREIGN KEY(cpf_cliente) REFERENCES cliente(cpf);
-ALTER TABLE categoria ADD CONSTRAINT fk_categoria_cod_produto
-FOREIGN KEY(cod_prod) REFERENCES produto(cod);
+/*NOVO-----------*/
+
+/*Tabela CLIENTE/CATEGORIA*/
+ALTER TABLE cliente_categoria ADD CONSTRAINT fk_cliente_categoria_cliente
+FOREIGN KEY (cpf_cliente) REFERENCES cliente(cpf);
+ALTER TABLE cliente_categoria ADD CONSTRAINT fk_cliente_categoria_categoria
+FOREIGN KEY (cod_categoria) REFERENCES categoria(cod);
 
 
+/*Tabela PRODUTO/CATEGORIA*/
+ALTER TABLE produto_categoria ADD CONSTRAINT fk_produto_categoria_produto
+FOREIGN KEY(cod_produto) REFERENCES produto(cod);
+ALTER TABLE produto_categoria ADD CONSTRAINT fk_produto_categoria_categoria
+FOREIGN KEY(cod_categoria) REFERENCES categoria(cod);
 
+/*-------------------------Inserção das catergorias na tabaela categorias-------------------------------*/
+USE nutrix;
 
+INSERT INTO categoria (nome, descricao) VALUES
+    ('Bebidas', 'Essa categoria engloba uma variedade de opções líquidas para consumo, como água, sucos naturais, refrigerantes, chás, café e outras bebidas não alcoólicas.'),
+    ('Laticínios', 'Os laticínios incluem produtos derivados do leite, como leite em suas diferentes formas (integral, desnatado, sem lactose), queijos de diversos tipos (mussarela, cheddar, prato, etc.), iogurtes e manteiga.'),
+    ('Carnes e Aves', 'Essa categoria abrange diferentes tipos de carne, como carnes bovinas (como filé mignon, costela, picanha), suínas (como lombo, bacon) e aves (como frango e peru), além de peixes e frutos do mar.'),
+    ('Frutas e Vegetais', 'Nessa categoria estão inclusas frutas frescas, legumes e verduras, que são fontes de vitaminas, minerais e fibras essenciais para uma dieta equilibrada.'),
+    ('Grãos e Cereais', 'Essa categoria engloba alimentos como arroz, trigo, aveia, milho, pães e massas, que são fontes de carboidratos e fornecem energia ao organismo.'),
+    ('Produtos de Panificação', 'Aqui são encontrados produtos assados, como bolos, tortas, pães, biscoitos e outras delícias de padaria, ideais para lanches ou sobremesas.'),
+    ('Produtos Orgânicos', 'Essa categoria refere-se a alimentos cultivados sem o uso de pesticidas, fertilizantes químicos ou organismos geneticamente modificados, proporcionando uma opção mais natural e saudável.'),
+    ('Snacks e Petiscos', 'Nessa categoria estão inclusos alimentos práticos e saborosos para consumo entre as refeições principais, como salgadinhos, nuts, barras de cereal, pipoca e outros petiscos.'),
+    ('Sobremesas', 'Essa categoria é composta por opções doces para finalizar uma refeição, como sorvetes, doces, chocolates, pudins e outras sobremesas deliciosas.'),
+    ('Alimentos Congelados', 'Essa categoria inclui alimentos que foram congelados para conservação, como pizzas, massas prontas, vegetais congelados, facilitando a preparação de refeições rápidas.');
 
 
 

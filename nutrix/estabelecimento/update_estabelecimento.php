@@ -27,20 +27,21 @@ $cep = filter_input(INPUT_POST, 'cep', FILTER_SANITIZE_STRING);
 $numero = filter_input(INPUT_POST, 'numero', FILTER_SANITIZE_STRING);
 $complemento = filter_input(INPUT_POST, 'complemento', FILTER_SANITIZE_STRING);
 // preparar a consulta com parâmetros de consulta preparados
-$sql = "UPDATE cliente SET telefone=?, nome=?, email=?, estado=?, cidade=?, bairro=?, logradouro=?, cep=?, numero=?, complemento=? WHERE cnpj=?";
+$sql = "UPDATE estabelecimento SET telefone=?, nome=?, email=?, estado=?, cidade=?, bairro=?, logradouro=?, cep=?, numero=?, complemento=? WHERE cnpj=?";
+
 $stmt = mysqli_prepare($conexao, $sql);
 
 // vincular os parâmetros de consulta
-mysqli_stmt_bind_param($stmt, "sssi", $telefone, $nome, $email,$estado, $cidade, $bairro, $logradouro, $cep, $numero, $complemento, $cnpj);
+mysqli_stmt_bind_param($stmt, "sssssssssss", $telefone, $nome, $email,$estado, $cidade, $bairro, $logradouro, $cep, $numero, $complemento, $cnpj);
 
 // executar a consulta
 if (mysqli_stmt_execute($stmt)) {
-    $_SESSION['alteracao_dados_cliente'] = "sucesso";
+    $_SESSION['alteracao_dados_estabelecimento'] = "sucesso";
 } else {
-    $_SESSION['alteracao_dados_cliente'] = "erro";
+    $_SESSION['alteracao_dados_estabelecimento'] = "erro";
 }
 
-var_dump($_SESSION['alteracao_dados_cliente']);
+var_dump($_SESSION['alteracao_dados_estabelecimento']);
 // fechar a conexão e liberar os recursos
 mysqli_stmt_close($stmt);
 mysqli_close($conexao);
