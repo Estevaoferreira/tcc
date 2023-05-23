@@ -1,7 +1,2 @@
 
-claudio.oliveira@fatec.sp.gov.br
-angelaluhmann@gmail.com
-
-gabriela.conceicao01@fatec.sp.gov.br;
-giovani.simeao@fatec.sp.gov.br;
-vinicius.cobo@fatec.sp.gov.br;
+none
