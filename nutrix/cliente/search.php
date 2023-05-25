@@ -77,10 +77,10 @@
       height: 40px;
       margin-right: 10px;
     }
-    form {
+    /*form {
       display: flex;
       align-items: center;
-    }
+    }*/
 
     input[type="text"] {
       padding: 10px;
@@ -184,6 +184,40 @@
 
 
 
+
+
+    #opcoes-filtro {
+      display: none;
+      margin-top: 10px;
+    }
+
+    @media screen and (max-width: 768px) {
+      #opcoes-filtro {
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+      }
+    }
+
+    @media screen and (min-width: 769px) {
+      #opcoes-filtro {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 500px;
+        margin: 10px auto;
+      }
+
+      #opcoes-filtro label,
+      #opcoes-filtro input,
+      #opcoes-filtro select {
+        width: 100%;
+      }
+    }
+
+
+
   </style>
 </head>
 <!DOCTYPE html>
@@ -241,10 +275,38 @@
         <div class="col-lg-6 col-md-8 mx-auto">
           <h1 class="fw-light">Aproveite a experiência</h1>
           <p>
-            <form method="POST" action="">
-              <input type="text" name="pesquisa" placeholder="Digite sua pesquisa">
-              <button type="submit"><img src="../img/icones/icones-gerais/search_icon.svg" alt="Pesquisar"></button>
+
+            <!---Inicio do formulario para pesquisa de produtos-->
+            <form id="form-pesquisa" action="seu_backend.php" method="GET">
+              <label for="pesquisa"></label>
+              <input type="text" id="pesquisa" name="pesquisa" placeholder="Digite o nome do produto">
+
+              <button type="button" id="btn-filtrar">Filtrar</button>
+
+              <div id="opcoes-filtro" style="display: none;">
+
+                <label for="ingredientes">Ingredientes:</label>
+                <select id="ingredientes" name="ingredientes">
+                  <option value="">Não pode conter esses ingredientes</option>
+                  <option value="categoria1">Categoria 1</option>
+                  <option value="categoria2">Categoria 2</option>
+                  <option value="categoria3">Categoria 3</option>
+                </select>
+
+                <label for="categoria">Categoria:</label>
+                <select id="categoria" name="categoria">
+                  <option value="">Selecione a categoria</option>
+                  <option value="categoria1">Categoria 1</option>
+                  <option value="categoria2">Categoria 2</option>
+                  <option value="categoria3">Categoria 3</option>
+                </select>
+              </div>
+
+              <button type="submit">Buscar</button>
             </form>
+            <!---Final do formulario para pesquisa de produtos-->
+
+
           </p>
         </div>
       </div>
@@ -288,86 +350,86 @@
 
               <h1 align="center">Nenhum resultado encontrado</p>
 
-              <?php
-            }else{
-            while ($row = mysqli_fetch_assoc($result)) {
+                <?php
+              }else{
+                while ($row = mysqli_fetch_assoc($result)) {
 
-              $caminho_foto = $row['foto'];
-              $caminho_raiz = $_SERVER['DOCUMENT_ROOT'];
-              $caminho_pasta = '/tcc/nutrix/estabelecimento/';
+                  $caminho_foto = $row['foto'];
+                  $caminho_raiz = $_SERVER['DOCUMENT_ROOT'];
+                  $caminho_pasta = '/tcc/nutrix/estabelecimento/';
 
-              $caminho_foto_completo = $caminho_raiz.$caminho_pasta.$caminho_foto;
+                  $caminho_foto_completo = $caminho_raiz.$caminho_pasta.$caminho_foto;
 
-              ?>
-              <div class="col">
-                <div class="card shadow-sm">
-                  <img src="/tcc/nutrix/estabelecimento/<?php echo $caminho_foto; ?>" class="bd-placeholder-img card-img-top" width="100%" height="225" aria-label="Placeholder: Thumbnail" role="img" preserveAspectRatio="xMidYMid slice" focusable="false">
-                  <div class="card-body">
-                    <p class="card-text"><?php echo $row['descricao']; ?></p>
-                    <div class="d-flex justify-content-between align-items-center">
-                      <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-outline-secondary">&hearts;</button>
+                  ?>
+                  <div class="col">
+                    <div class="card shadow-sm">
+                      <img src="/tcc/nutrix/estabelecimento/<?php echo $caminho_foto; ?>" class="bd-placeholder-img card-img-top" width="100%" height="225" aria-label="Placeholder: Thumbnail" role="img" preserveAspectRatio="xMidYMid slice" focusable="false">
+                      <div class="card-body">
+                        <p class="card-text"><?php echo $row['descricao']; ?></p>
+                        <div class="d-flex justify-content-between align-items-center">
+                          <div class="btn-group">
+                            <button type="button" class="btn btn-sm btn-outline-secondary">&hearts;</button>
+                          </div>
+                          <small class="text-muted"><?php echo $row['nome']; ?></small>
+                        </div>
                       </div>
-                      <small class="text-muted"><?php echo $row['nome']; ?></small>
                     </div>
                   </div>
-                </div>
-              </div>
 
-              <?php
-            }
-          }
+                  <?php
+                }
+              }
       // Final do trecho que faz a pesquisa com parametro passado no POST
 
 
     // Inicio do trecho que faz a pesquisa com parametro passado na URL
-          }elseif (isset($_GET['categoria'])) {
+            }elseif (isset($_GET['categoria'])) {
 
-            $pesquisa = $_GET['categoria'];
+              $pesquisa = $_GET['categoria'];
 
       // Executar a consulta usando o valor $pesquisa
       // Armazenar o resultado em uma variável, por exemplo, $resultado
-            $pesquisa = mysqli_real_escape_string($conexao, $pesquisa);
-            $sql = "SELECT P.*, C.nome AS nome_categoria
-            FROM produto P
-            JOIN produto_categoria PC ON P.cod = PC.cod_produto
-            JOIN categoria C ON PC.cod_categoria = C.cod
-            WHERE C.nome LIKE '%$pesquisa%'";
-            $result = mysqli_query($conexao, $sql);
+              $pesquisa = mysqli_real_escape_string($conexao, $pesquisa);
+              $sql = "SELECT P.*, C.nome AS nome_categoria
+              FROM produto P
+              JOIN produto_categoria PC ON P.cod = PC.cod_produto
+              JOIN categoria C ON PC.cod_categoria = C.cod
+              WHERE C.nome LIKE '%$pesquisa%'";
+              $result = mysqli_query($conexao, $sql);
 
       // Verificar se ocorreu algum erro na consulta
-            if (!$result) {
-              die('Erro na consulta: ' . mysqli_error($conexao));
-            }
+              if (!$result) {
+                die('Erro na consulta: ' . mysqli_error($conexao));
+              }
 
       // Exibir os resultados da pesquisa
-            while ($row = mysqli_fetch_assoc($result)) {
+              while ($row = mysqli_fetch_assoc($result)) {
 
-              $caminho_foto = $row['foto'];
-              $caminho_raiz = $_SERVER['DOCUMENT_ROOT'];
-              $caminho_pasta = '/tcc/nutrix/estabelecimento/';
+                $caminho_foto = $row['foto'];
+                $caminho_raiz = $_SERVER['DOCUMENT_ROOT'];
+                $caminho_pasta = '/tcc/nutrix/estabelecimento/';
 
-              $caminho_foto_completo = $caminho_raiz.$caminho_pasta.$caminho_foto;
-              ?>
+                $caminho_foto_completo = $caminho_raiz.$caminho_pasta.$caminho_foto;
+                ?>
 
-              <div class="col">
-                <div class="card shadow-sm">
-                  <img src="/tcc/nutrix/estabelecimento/<?php echo $caminho_foto; ?>" class="bd-placeholder-img card-img-top" width="100%" height="225" aria-label="Placeholder: Thumbnail" role="img" preserveAspectRatio="xMidYMid slice" focusable="false">
-                  <div class="card-body">
-                    <p class="card-text"><?php echo $row['descricao']; ?></p>
-                    <div class="d-flex justify-content-between align-items-center">
-                      <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-outline-secondary">&hearts;</button>
+                <div class="col">
+                  <div class="card shadow-sm">
+                    <img src="/tcc/nutrix/estabelecimento/<?php echo $caminho_foto; ?>" class="bd-placeholder-img card-img-top" width="100%" height="225" aria-label="Placeholder: Thumbnail" role="img" preserveAspectRatio="xMidYMid slice" focusable="false">
+                    <div class="card-body">
+                      <p class="card-text"><?php echo $row['descricao']; ?></p>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-sm btn-outline-secondary">&hearts;</button>
+                        </div>
+                        <small class="text-muted"><?php echo $row['nome']; ?></small>
                       </div>
-                      <small class="text-muted"><?php echo $row['nome']; ?></small>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <?php
+                <?php
+              }
             }
-          }
     // Final do trecho que faz a pesquisa com parametro passado na URL
 
 
@@ -376,105 +438,113 @@
 
 
     // Fechar a conexão
-          mysqli_close($conexao);
-          ?>
-          <!---Final de um card-->
+            mysqli_close($conexao);
+            ?>
+            <!---Final de um card-->
+          </div>
         </div>
       </div>
-    </div>
-  </main>
+    </main>
 
-  <footer>
-    <!-- Seu código para o rodapé aqui -->
-  </footer>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script>
-    $(document).ready(function() {
-      function carregarDados() {
-        $.ajax({
-          url: 'pesquisa_estabelecimento.php',
-          method: 'GET',
-          dataType: 'html',
-          success: function(data) {
-            $('#estabelecimentos').html(data);
-          },
-          error: function(xhr, status, error) {
-            console.log('Erro na solicitação AJAX: ' + error);
-          }
+    <footer>
+      <!-- Seu código para o rodapé aqui -->
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        function carregarDados() {
+          $.ajax({
+            url: 'pesquisa_estabelecimento.php',
+            method: 'GET',
+            dataType: 'html',
+            success: function(data) {
+              $('#estabelecimentos').html(data);
+            },
+            error: function(xhr, status, error) {
+              console.log('Erro na solicitação AJAX: ' + error);
+            }
+          });
+        }
+
+        carregarDados();
+        setInterval(carregarDados, 5000);
+      });
+
+      $(document).ready(function() {
+        function carregarProduto() {
+          $.ajax({
+            url: 'pesquisa_produto.php',
+            method: 'GET',
+            dataType: 'html',
+            success: function(data) {
+              $('#produto').html(data);
+            },
+            error: function(xhr, status, error) {
+              console.log('Erro na solicitação AJAX: ' + error);
+            }
+          });
+        }
+
+        carregarProduto();
+
+        setInterval(carregarProduto, 5000)
+      });
+
+      $(document).ready(function() {
+        function carregarCategorias() {
+          $.ajax({
+            url: 'pesquisa_categorias.php',
+            method: 'GET',
+            dataType: 'html',
+            success: function(data) {
+              $('#subcategorias').html(data);
+            },
+            error: function(xhr, status, error) {
+              console.log('Erro na solicitação AJAX: ' + error);
+            }
+          });
+        }
+
+        carregarCategorias();
+
+        setInterval(carregarCategorias, 5000)
+      });
+
+      function openNav() {
+        document.getElementById("mySidenav").style.width = "250px";
+        document.getElementById("main").style.marginLeft = "250px";
+        document.getElementById("h1").style.color = "white";
+      }
+
+      function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+        document.getElementById("main").style.marginLeft = "0";
+        document.getElementById("h1").style.color = "Black";
+      }
+
+      function openCategoria() {
+        var subcategorias = document.getElementsByClassName('lista_categorias');
+        for (var i = 0; i < subcategorias.length; i++) {
+          subcategorias[i].style.display = 'block';
+        }
+      }
+
+      function closeCategoria() {
+        var subcategorias = document.getElementsByClassName('lista_categorias');
+        for (var i = 0; i < subcategorias.length; i++) {
+          subcategorias[i].style.display = 'none';
+        }
+      }
+
+
+      $(document).ready(function() {
+        $('#btn-filtrar').click(function() {
+          $('#opcoes-filtro').toggle();
         });
-      }
+      });
 
-      carregarDados();
-      setInterval(carregarDados, 5000);
-    });
+    </script>
+  </body>
 
-    $(document).ready(function() {
-      function carregarProduto() {
-        $.ajax({
-          url: 'pesquisa_produto.php',
-          method: 'GET',
-          dataType: 'html',
-          success: function(data) {
-            $('#produto').html(data);
-          },
-          error: function(xhr, status, error) {
-            console.log('Erro na solicitação AJAX: ' + error);
-          }
-        });
-      }
-
-      carregarProduto();
-
-      setInterval(carregarProduto, 5000)
-    });
-
-    $(document).ready(function() {
-      function carregarCategorias() {
-        $.ajax({
-          url: 'pesquisa_categorias.php',
-          method: 'GET',
-          dataType: 'html',
-          success: function(data) {
-            $('#subcategorias').html(data);
-          },
-          error: function(xhr, status, error) {
-            console.log('Erro na solicitação AJAX: ' + error);
-          }
-        });
-      }
-
-      carregarCategorias();
-
-      setInterval(carregarCategorias, 5000)
-    });
-
-    function openNav() {
-      document.getElementById("mySidenav").style.width = "250px";
-      document.getElementById("main").style.marginLeft = "250px";
-      document.getElementById("h1").style.color = "white";
-    }
-
-    function closeNav() {
-      document.getElementById("mySidenav").style.width = "0";
-      document.getElementById("main").style.marginLeft = "0";
-      document.getElementById("h1").style.color = "Black";
-    }
-
-    function openCategoria() {
-      var subcategorias = document.getElementsByClassName('lista_categorias');
-      for (var i = 0; i < subcategorias.length; i++) {
-        subcategorias[i].style.display = 'block';
-      }
-    }
-
-    function closeCategoria() {
-      var subcategorias = document.getElementsByClassName('lista_categorias');
-      for (var i = 0; i < subcategorias.length; i++) {
-        subcategorias[i].style.display = 'none';
-      }
-    }
-  </script>
-</body>
-
-</html>
+  </html>
 
