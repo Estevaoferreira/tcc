@@ -182,9 +182,9 @@
           while ($row = mysqli_fetch_assoc($result)) {
             echo "<tr>";
             echo "<td>{$row['nome']}</td>";
-            echo "<td>{$row['tipo']}</td>";
+            echo "<td>{$row['cod']}</td>";
             echo "<td><img src='{$row['foto']}' alt='Foto do Produto'></td>";
-            echo "<td>{$row['preco']}</td>";
+            echo "<td>{$row['valor']}</td>";
             echo "<td><a href='alterar_produto.php' class='add-button'><img = src=''></a></td>";
             echo "</tr>";
           }

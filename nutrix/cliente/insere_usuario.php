@@ -18,7 +18,8 @@ $sql = "INSERT INTO cliente (cpf, nome, telefone, email, senha)
 VALUES ('$cpf', '$nome', '$telefone', '$email', '$senha_hash')";
 
 if (mysqli_query($conexao, $sql)) {
-    echo "Novo cliente adicionado com sucesso!";
+    session_start();
+    $_SESSION['cpf'] = $cpf;
     header("Location: dashboard.php");
 } else {
     echo "Erro ao adicionar novo cliente: " . mysqli_error($conexao);

@@ -128,6 +128,16 @@
       font-size: 16px;
       cursor: pointer;
     }
+    button[type=button]{
+      width: 20%;
+      padding: 0px;
+      border: none;
+      border-radius: 5px;
+      background-color: #4CAF50;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+    }
 
     button[type=submit]:hover {
       background-color: #45a049;
@@ -159,7 +169,7 @@
     <h1>Cadastro</h1>
 
     <!-- Inicio do formulário-->
-    <form id="formulario" action="insere_produto.php" method="POST">
+    <form id="formulario" action="insere_produto.php" method="POST" enctype="multipart/form-data"> 
       <label for="nome">Nome:</label>
       <input type="text" id="nome" name="nome" required>
 
@@ -188,13 +198,18 @@
       </select>
 
       <label for="foto">Foto do produto</label>
-      <input type="file" id="foto" name="foto" accept=".png, .svg, .jpg, .jpeg" required>
+      <input type="file" id="foto" name="foto" accept="image/jpeg, image/png" required>
 
-      <label for="desc-prod">Descrição do produto:</label>
-      <input type="text" id="desc-prod" name="desc-prod" required>
+      <label for="descricao">Descrição do produto:</label>
+      <input type="text" id="descricao" name="descricao" required>
+
+      <label for="descricao">Ingrediente:</label>
+      <div id="ingredientesContainer"></div>
+      <button type="button" id="adicionarIngrediente">&plus;</button>
 
       <label for="valor">Valor:</label>
-      <input type="number" id="valor" name="valor" step="0.01" min="0" pattern="^\d{1,6}(\.\d{0,2})?$" required>
+      <input type="text" id="valor" name="valor" pattern="\d{1,10}\.\d{0,4}" title="Valor máximo 9999999999.9999" required>
+
 
       <button type="submit">Adicionar</button>
     </form>
@@ -213,6 +228,53 @@
       document.getElementById("main").style.marginLeft= "0";
       document.getElementById("h1").style.color = "Black";
     }
+
+    document.addEventListener("DOMContentLoaded", function() {
+  // Variável para contar o número de campos de ingrediente
+      let contadorIngredientes = 0;
+
+  // Seleciona o contêiner dos ingredientes
+      const ingredientesContainer = document.getElementById("ingredientesContainer");
+
+  // Seleciona o botão para adicionar ingredientes
+      const adicionarIngredienteBtn = document.getElementById("adicionarIngrediente");
+
+  // Adiciona um evento de clique ao botão para adicionar ingredientes
+      adicionarIngredienteBtn.addEventListener("click", function() {
+    // Incrementa o contador de ingredientes
+        contadorIngredientes++;
+
+    // Cria os elementos HTML para o campo de ingrediente
+        const campoIngrediente = document.createElement("div");
+        campoIngrediente.classList.add("campo-ingrediente");
+
+        const labelIngrediente = document.createElement("label");
+        labelIngrediente.for = "ingrediente" + contadorIngredientes;
+        labelIngrediente.textContent = "Ingrediente " + contadorIngredientes + ":";
+
+        const inputIngrediente = document.createElement("input");
+        inputIngrediente.type = "text";
+        inputIngrediente.id = "ingrediente" + contadorIngredientes;
+    inputIngrediente.name = "ingredientes[]"; // Use [] para indicar um array de valores
+
+    const removerIngredienteBtn = document.createElement("button");
+    removerIngredienteBtn.type = "button";
+    removerIngredienteBtn.classList.add("remover-ingrediente");
+    removerIngredienteBtn.textContent = "x";
+    removerIngredienteBtn.addEventListener("click", function() {
+      // Remove o campo de ingrediente quando o botão de remover é clicado
+      campoIngrediente.remove();
+    });
+
+    // Adiciona os elementos criados ao contêiner dos ingredientes
+    campoIngrediente.appendChild(labelIngrediente);
+    campoIngrediente.appendChild(inputIngrediente);
+    campoIngrediente.appendChild(removerIngredienteBtn);
+    ingredientesContainer.appendChild(campoIngrediente);
+  });
+    });
+
+
   </script>
 </body>
 </html>

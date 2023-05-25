@@ -6,6 +6,7 @@ Tabela cliente com ligação N pra N com a tabela cliente_categoria
 Tabela estabelecimento com ligação N pra N com a tabela favorito
 Tabela estabelecimento com ligação 1 pra N com a tabela produto
 Tabela produto com ligação N pra N com a tabela produto_categoria
+Tabela produto com ligação N pra N com a tabela produto_ingrediente
 Tabela produto com ligação N pra N com a tabela favorito
 Tabela categoria com ligação N pra N com a tabela produto_categoria
 Tabela categoria com ligação N pra N com a tabela cliente_categoria
@@ -31,10 +32,15 @@ CREATE TABLE cliente (
   cod_categoria INT(6)
 );
 
-CREATE TABLE favorito (
+CREATE TABLE favorito_estabelecimento (
 
   cpf_cliente VARCHAR(14),
-  cnpj_estabelecimento VARCHAR(18),
+  cnpj_estabelecimento VARCHAR(18)
+);
+
+CREATE TABLE favorito_produto (
+
+  cpf_cliente VARCHAR(14),
   cod_prod INT(6)
 );
 
@@ -59,10 +65,9 @@ CREATE TABLE produto(
 
   cod INT(6) PRIMARY KEY AUTO_INCREMENT,
   nome TINYTEXT,
-  tipo TINYTEXT,
-  foto BLOB,
+  foto VARCHAR(100),
   descricao TINYTEXT,
-  valor DECIMAL(6,2),
+  valor DECIMAL(14,4),
   tabela_nutri TEXT,
   compo TINYTEXT,
   cnpj_estabelecimento VARCHAR(18)  
@@ -74,6 +79,12 @@ CREATE TABLE categoria(
   cod INT(6) PRIMARY KEY AUTO_INCREMENT,
   nome TINYTEXT,
   descricao TINYTEXT
+);
+
+CREATE TABLE ingrediente(
+
+  cod INT(6) PRIMARY KEY AUTO_INCREMENT,
+  nome TINYTEXT
 );
 
 CREATE TABLE cliente_categoria (
@@ -89,17 +100,27 @@ CREATE TABLE produto_categoria (
   PRIMARY KEY(cod_produto, cod_categoria)
 );
 
+CREATE TABLE produto_ingrediente (
+  cod_produto INT(6),
+  cod_ingrediente INT(6),
+  PRIMARY KEY(cod_produto, cod_ingrediente)
+);
+
+
+
 
 
 
 /*------------Alterações na tabela, adicionando as chaves estrangeiras----------------------------*/
 
 /*Tabela FAVORITO*/
-ALTER TABLE favorito ADD CONSTRAINT fk_favorito_cpf_cliente
+ALTER TABLE favorito_produto ADD CONSTRAINT fk_favorito_produto_cpf_cliente
 FOREIGN KEY(cpf_cliente) REFERENCES cliente(cpf);
-ALTER TABLE favorito ADD CONSTRAINT fk_favorito_cnpj_estabelecimento
+ALTER TABLE favorito_estabelecimento ADD CONSTRAINT fk_favorito_estabelecimento_cpf_cliente
+FOREIGN KEY(cpf_cliente) REFERENCES cliente(cpf);
+ALTER TABLE favorito_estabelecimento ADD CONSTRAINT fk_favorito_estabelecimento_cnpj_estabelecimento
 FOREIGN KEY(cnpj_estabelecimento) REFERENCES estabelecimento(cnpj);
-ALTER TABLE favorito ADD CONSTRAINT fk_favorito_cod_prod
+ALTER TABLE favorito_produto ADD CONSTRAINT fk_favorito_produto_cod_prod
 FOREIGN KEY(cod_prod) REFERENCES produto(cod);
 
 
@@ -122,6 +143,12 @@ ALTER TABLE produto_categoria ADD CONSTRAINT fk_produto_categoria_produto
 FOREIGN KEY(cod_produto) REFERENCES produto(cod);
 ALTER TABLE produto_categoria ADD CONSTRAINT fk_produto_categoria_categoria
 FOREIGN KEY(cod_categoria) REFERENCES categoria(cod);
+
+/*Tabela PRODUTO/INGREDIENTE*/
+ALTER TABLE produto_ingrediente ADD CONSTRAINT fk_produto_ingrediente_produto
+FOREIGN KEY(cod_produto) REFERENCES produto(cod);
+ALTER TABLE produto_ingrediente ADD CONSTRAINT fk_produto_ingrediente_ingrediente
+FOREIGN KEY(cod_ingrediente) REFERENCES ingrediente(cod);
 
 /*-------------------------Inserção das catergorias na tabaela categorias-------------------------------*/
 USE nutrix;

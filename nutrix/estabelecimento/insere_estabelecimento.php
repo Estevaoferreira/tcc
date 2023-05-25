@@ -28,6 +28,7 @@ var_dump($sql);
 
 if (mysqli_query($conexao, $sql)) {
     echo "Novo cliente adicionado com sucesso!";
+    session_start();
     $_SESSION['cnpj'] = $cnpj;
     $_SESSION['login'] = true;
     header("Location: dashboard_estabelecimento.php");
