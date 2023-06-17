@@ -184,7 +184,7 @@
         }
 
     // Consulta para obter as categorias
-        $sql = "SELECT cod, nome FROM categoria";
+        $sql = "SELECT cod, nome FROM categoria WHERE tipo = 'estabelecimento'";
         $result = mysqli_query($conexao, $sql);
 
     // Exibir as opções do select
@@ -207,7 +207,31 @@
       <div id="ingredientesContainer"></div>
       <button type="button" id="adicionarIngrediente">&plus;</button>
 
-      <label for="valor">Valor:</label>
+      <label for="categorias">Produto destinado para pessoas com as seguintes restrições: </label>
+      <select id="categorias" name="categorias_cliente[]" multiple class="select">
+        <?php
+    // Conexão com o banco de dados
+        require_once "../conexao.php";
+              // Verificar a conexão
+        if (!$conexao) {
+          die('Erro ao conectar ao banco de dados: ' . mysqli_connect_error());
+        }
+
+    // Consulta para obter as categorias
+        $sql = "SELECT cod, nome FROM categoria WHERE tipo = 'cliente'";
+        $result = mysqli_query($conexao, $sql);
+
+    // Exibir as opções do select
+        while ($row = mysqli_fetch_assoc($result)) {
+          echo '<option value="' . $row['cod'] . '">' . $row['nome'] . '</option>';
+        }
+
+    // Fechar a conexão com o banco de dados
+        $result->close();
+        ?>
+      </select>
+
+      <label for="valor">Valor unitário:</label>
       <input type="text" id="valor" name="valor" pattern="\d{1,10}\.\d{0,4}" title="Valor máximo 9999999999.9999" required>
 
 

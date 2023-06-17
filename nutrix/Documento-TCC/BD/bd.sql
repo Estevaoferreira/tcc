@@ -28,8 +28,7 @@ CREATE TABLE cliente (
   nome TINYTEXT,
   telefone VARCHAR(18),   
   email TINYTEXT,
-  senha TINYTEXT,
-  cod_categoria INT(6)
+  senha TINYTEXT
 );
 
 CREATE TABLE favorito_estabelecimento (
@@ -77,6 +76,7 @@ CREATE TABLE produto(
 CREATE TABLE categoria(
 
   cod INT(6) PRIMARY KEY AUTO_INCREMENT,
+  tipo TINYTEXT,
   nome TINYTEXT,
   descricao TINYTEXT
 );
@@ -106,6 +106,12 @@ CREATE TABLE produto_ingrediente (
   PRIMARY KEY(cod_produto, cod_ingrediente)
 );
 
+
+CREATE TABLE produto_publico (
+  cod_produto INT(6),
+  cod_categoria INT(6),
+  PRIMARY KEY(cod_produto, cod_categoria)
+);
 
 
 
@@ -150,20 +156,37 @@ FOREIGN KEY(cod_produto) REFERENCES produto(cod);
 ALTER TABLE produto_ingrediente ADD CONSTRAINT fk_produto_ingrediente_ingrediente
 FOREIGN KEY(cod_ingrediente) REFERENCES ingrediente(cod);
 
+/*Tabela PRODUTO/PUBLICO*/
+ALTER TABLE produto_publico ADD CONSTRAINT fk_produto_publico_produto
+FOREIGN KEY(cod_produto) REFERENCES produto(cod);
+ALTER TABLE produto_publico ADD CONSTRAINT fk_produto_publico_categoria
+FOREIGN KEY(cod_categoria) REFERENCES categoria(cod);
+
+
 /*-------------------------Inserção das catergorias na tabaela categorias-------------------------------*/
 USE nutrix;
 
-INSERT INTO categoria (nome, descricao) VALUES
-    ('Bebidas', 'Essa categoria engloba uma variedade de opções líquidas para consumo, como água, sucos naturais, refrigerantes, chás, café e outras bebidas não alcoólicas.'),
-    ('Laticínios', 'Os laticínios incluem produtos derivados do leite, como leite em suas diferentes formas (integral, desnatado, sem lactose), queijos de diversos tipos (mussarela, cheddar, prato, etc.), iogurtes e manteiga.'),
-    ('Carnes e Aves', 'Essa categoria abrange diferentes tipos de carne, como carnes bovinas (como filé mignon, costela, picanha), suínas (como lombo, bacon) e aves (como frango e peru), além de peixes e frutos do mar.'),
-    ('Frutas e Vegetais', 'Nessa categoria estão inclusas frutas frescas, legumes e verduras, que são fontes de vitaminas, minerais e fibras essenciais para uma dieta equilibrada.'),
-    ('Grãos e Cereais', 'Essa categoria engloba alimentos como arroz, trigo, aveia, milho, pães e massas, que são fontes de carboidratos e fornecem energia ao organismo.'),
-    ('Produtos de Panificação', 'Aqui são encontrados produtos assados, como bolos, tortas, pães, biscoitos e outras delícias de padaria, ideais para lanches ou sobremesas.'),
-    ('Produtos Orgânicos', 'Essa categoria refere-se a alimentos cultivados sem o uso de pesticidas, fertilizantes químicos ou organismos geneticamente modificados, proporcionando uma opção mais natural e saudável.'),
-    ('Snacks e Petiscos', 'Nessa categoria estão inclusos alimentos práticos e saborosos para consumo entre as refeições principais, como salgadinhos, nuts, barras de cereal, pipoca e outros petiscos.'),
-    ('Sobremesas', 'Essa categoria é composta por opções doces para finalizar uma refeição, como sorvetes, doces, chocolates, pudins e outras sobremesas deliciosas.'),
-    ('Alimentos Congelados', 'Essa categoria inclui alimentos que foram congelados para conservação, como pizzas, massas prontas, vegetais congelados, facilitando a preparação de refeições rápidas.');
+INSERT INTO categoria (tipo, nome, descricao) VALUES
+    ('estabelecimento','Bebidas', 'Essa categoria engloba uma variedade de opções líquidas para consumo, como água, sucos naturais, refrigerantes, chás, café e outras bebidas não alcoólicas.'),
+    ('estabelecimento','Laticínios', 'Os laticínios incluem produtos derivados do leite, como leite em suas diferentes formas (integral, desnatado, sem lactose), queijos de diversos tipos (mussarela, cheddar, prato, etc.), iogurtes e manteiga.'),
+    ('estabelecimento','Carnes e Aves', 'Essa categoria abrange diferentes tipos de carne, como carnes bovinas (como filé mignon, costela, picanha), suínas (como lombo, bacon) e aves (como frango e peru), além de peixes e frutos do mar.'),
+    ('estabelecimento','Frutas e Vegetais', 'Nessa categoria estão inclusas frutas frescas, legumes e verduras, que são fontes de vitaminas, minerais e fibras essenciais para uma dieta equilibrada.'),
+    ('estabelecimento','Grãos e Cereais', 'Essa categoria engloba alimentos como arroz, trigo, aveia, milho, pães e massas, que são fontes de carboidratos e fornecem energia ao organismo.'),
+    ('estabelecimento','Produtos de Panificação', 'Aqui são encontrados produtos assados, como bolos, tortas, pães, biscoitos e outras delícias de padaria, ideais para lanches ou sobremesas.'),
+    ('estabelecimento','Produtos Orgânicos', 'Essa categoria refere-se a alimentos cultivados sem o uso de pesticidas, fertilizantes químicos ou organismos geneticamente modificados, proporcionando uma opção mais natural e saudável.'),
+    ('estabelecimento','Snacks e Petiscos', 'Nessa categoria estão inclusos alimentos práticos e saborosos para consumo entre as refeições principais, como salgadinhos, nuts, barras de cereal, pipoca e outros petiscos.'),
+    ('estabelecimento','Sobremesas', 'Essa categoria é composta por opções doces para finalizar uma refeição, como sorvetes, doces, chocolates, pudins e outras sobremesas deliciosas.'),
+    ('estabelecimento','Alimentos Congelados', 'Essa categoria inclui alimentos que foram congelados para conservação, como pizzas, massas prontas, vegetais congelados, facilitando a preparação de refeições rápidas.'),
+    ('cliente','Vegetarianismo', 'Restrição ao consumo de carne e frutos do mar.'),
+    ('cliente','Veganismo', 'Restrição ao consumo de qualquer alimento de origem animal, incluindo carne, laticínios, ovos e mel.'),
+    ('cliente','Intolerância à lactose', 'Restrição ao consumo de produtos lácteos devido à incapacidade de digerir a lactose.'),
+    ('cliente','Alergia ao glúten', 'Restrição ao consumo de trigo, cevada, centeio e produtos derivados.'),
+    ('cliente','Diabetes', 'Restrição ao consumo de açúcar e alimentos com alto teor de carboidratos para controlar os níveis de glicose no sangue.'),
+    ('cliente','Intolerância ao glúten não celíaca', 'Restrição ao consumo de glúten devido a sintomas digestivos e outros associados à ingestão de glúten.'),
+    ('cliente','Alergias alimentares', 'Restrição ao consumo de alimentos específicos, como amendoim, mariscos, ovos, soja, etc., devido a reações alérgicas.'),
+    ('cliente','Dieta sem sal', 'Restrição ao consumo de sal devido a problemas de pressão arterial elevada ou outras condições de saúde.'),
+    ('cliente','Restrição a alimentos processados', 'Restrição ao consumo de alimentos altamente processados e ricos em aditivos artificiais.'),
+    ('cliente','Restrição a alimentos refinados', 'Restrição ao consumo de alimentos refinados, como açúcar refinado, farinha branca, arroz branco, etc., devido aos seus efeitos na saúde.');
 
 
 

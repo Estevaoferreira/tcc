@@ -6,8 +6,9 @@ session_start();
 /*Definição das váriaveis*/
 $nome = $_POST['nome'];
 
-$categorias = $_POST['categorias'];         //Array de categorias que será tratado diferente
-$ingredientes = $_POST['ingredientes'];     //Array de ingredientes que será tratado diferente
+$categorias = $_POST['categorias'];                 //Array de categorias que será tratado diferente
+$ingredientes = $_POST['ingredientes'];             //Array de ingredientes que será tratado diferente
+$categorias_cliente = $_POST['categorias_cliente']; //Array de categorias dos clientes que será tratado diferente
 
 $descricao = $_POST['descricao'];
 $valor = $_POST['valor'];
@@ -86,11 +87,19 @@ foreach ($categorias as $valor) {
     // Executar a instrução de inserção
     mysqli_query($conexao, $sql);
 }
+
+foreach ($categorias_cliente as $valor) {
+    // Instrução de inserção
+    $sql = "INSERT INTO produto_publico (cod_produto, cod_categoria) VALUES ('$cod_produto_inserido', '$valor')";
+
+    // Executar a instrução de inserção
+    mysqli_query($conexao, $sql);
+}
 /*--------------------------Final da inserção das categorias com relação com o produto na tabela produto_categorias*/
 
 
 
-/*--------------------------Inicio da inserção dos igredientes sem relação com o produto na tabela ingrdientes*/
+/*--------------------------Inicio da inserção dos ingredientes sem relação com o produto na tabela ingrdientes*/
 $sqlExistente = "SELECT nome FROM ingrediente";
 $resultExistente = mysqli_query($conexao, $sqlExistente);
 

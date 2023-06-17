@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -203,40 +207,40 @@
       <a href="perfil_cliente.php">Dados de conta</a>
       <a href="javascript:void(0)" id="categoria" onmouseover="openCategoria()">Categorias</a>
       <li style="list-style: none;">
-      <ul>
-        <div class="categoria">
-          <?php
-          require_once "../conexao.php";
+        <ul>
+          <div class="categoria">
+            <?php
+            require_once "../conexao.php";
 
             // Verificar a conexão
-          if (!$conexao) {
-            die('Erro ao conectar ao banco de dados: ' . mysqli_connect_error());
-          }
+            if (!$conexao) {
+              die('Erro ao conectar ao banco de dados: ' . mysqli_connect_error());
+            }
 
             // Selecionar todas as lojas da tabela 'estabelecimento'
-          $sql = "SELECT nome FROM categoria";
-          $result = mysqli_query($conexao, $sql);
+            $sql = "SELECT nome FROM categoria WHERE tipo = 'cliente'";
+            $result = mysqli_query($conexao, $sql);
 
             // Loop para gerar o HTML para cada categoria
-          while ($row = mysqli_fetch_assoc($result)) {
+            while ($row = mysqli_fetch_assoc($result)) {
               // Construir o HTML para exibir a categoria
-            echo '<li class="lista_categorias"><a  href="search.php?categoria='.$row['nome'].'" style="text-decoration: none;">' . $row['nome'] . '</a></li>';
-          }
-          ?>
-        </div>
-      </ul>
-    </li>
-    <a href="fecha_sessao.php">Sair</a>
-  </div>
-</header>
+              echo '<li class="lista_categorias"><a  href="search.php?categoria='.$row['nome'].'" style="text-decoration: none;">' . $row['nome'] . '</a></li>';
+            }
+            ?>
+          </div>
+        </ul>
+      </li>
+      <a href="fecha_sessao.php">Sair</a>
+    </div>
+  </header>
 
 
 
-<main>
+  <main>
     <section class="py-5 text-center container">
       <div class="row py-lg-5">
         <div class="col-lg-6 col-md-8 mx-auto">
-          <h1 class="fw-light">Aproveite a experiência</h1>
+          <h1 class="fw-light">Recomendados para seu perfil</h1>
         </div>
       </div>
     </section>
@@ -244,135 +248,180 @@
       <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
           <!---Inicio de um card-->
-              <div class="col">
-                <div class="card shadow-sm">
-                  <img src="/tcc/nutrix/estabelecimento/<?php echo $caminho_foto; ?>" class="bd-placeholder-img card-img-top" width="100%" height="225" aria-label="Placeholder: Thumbnail" role="img" preserveAspectRatio="xMidYMid slice" focusable="false">
-                  <div class="card-body">
-                    <p class="card-text"><?php echo $row['descricao']; ?></p>
-                    <div class="d-flex justify-content-between align-items-center">
-                      <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-outline-secondary">&hearts;</button>
+
+          <?php
+
+    // Inicio da chamada de conexão com o banco de dados e verificação se está tudo certo
+          require_once "../conexao.php";
+          if (!$conexao) {
+            die('Erro ao conectar ao banco de dados: ' . mysqli_connect_error());
+          }
+    // Final da chamada de conexão com o banco de dados e verificação se está tudo certo
+
+
+    //Inicio do trecho que traz as respostas das pesquisas
+
+
+    // Inicio do trecho que faz a pesquisa com parametro passado no POST
+          $cpfCliente = $_SESSION['cpf'];
+        
+      // Executar a consulta usando o valor $pesquisa_escrita
+      // Armazenar o resultado em uma variável, por exemplo, $resultado
+            $sql = "SELECT p.*
+            FROM produto p
+            INNER JOIN produto_publico pp ON p.cod = pp.cod_produto
+            INNER JOIN cliente_categoria cc ON pp.cod_categoria = cc.cod_categoria
+            WHERE cc.cpf_cliente = '$cpfCliente'";
+
+            $result = mysqli_query($conexao, $sql);
+
+      // Verificar se ocorreu algum erro na consulta
+            if (!$result) {
+              die('Erro na consulta: ' . mysqli_error($conexao));
+            }
+
+      // Exibir os resultados da pesquisa_escrita
+            if (mysqli_num_rows($result) == 0) {
+              ?>
+
+              <h1 align="center">Nenhum resultado encontrado</p>
+
+                <?php
+              }else{
+                while ($row = mysqli_fetch_assoc($result)) {
+
+                  $caminho_foto = $row['foto'];
+                  $caminho_raiz = $_SERVER['DOCUMENT_ROOT'];
+                  $caminho_pasta = '/tcc/nutrix/estabelecimento/';
+
+                  $caminho_foto_completo = $caminho_raiz.$caminho_pasta.$caminho_foto;
+
+                  ?>
+                  <div class="col">
+                    <div class="card shadow-sm">
+                      <img src="/tcc/nutrix/estabelecimento/<?php echo $caminho_foto; ?>" class="bd-placeholder-img card-img-top" width="100%" height="225" aria-label="Placeholder: Thumbnail" role="img" preserveAspectRatio="xMidYMid slice" focusable="false">
+                      <div class="card-body">
+                        <p class="card-text"><?php echo $row['descricao']; ?></p>
+                        <div class="d-flex justify-content-between align-items-center">
+                          <div class="btn-group">
+                            <button type="button" class="btn btn-sm btn-outline-secondary">&hearts;</button>
+                          </div>
+                          <small class="text-muted"><?php echo $row['nome']; ?></small>
+                        </div>
                       </div>
-                      <small class="text-muted"><?php echo $row['nome']; ?></small>
                     </div>
                   </div>
-                </div>
-              </div>
-          <!---Final de um card-->
-          <!---Inicio de um card-->
-              <div class="col">
-                <div class="card shadow-sm">
-                  <img src="/tcc/nutrix/estabelecimento/<?php echo $caminho_foto; ?>" class="bd-placeholder-img card-img-top" width="100%" height="225" aria-label="Placeholder: Thumbnail" role="img" preserveAspectRatio="xMidYMid slice" focusable="false">
-                  <div class="card-body">
-                    <p class="card-text"><?php echo $row['descricao']; ?></p>
-                    <div class="d-flex justify-content-between align-items-center">
-                      <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-outline-secondary">&hearts;</button>
-                      </div>
-                      <small class="text-muted"><?php echo $row['nome']; ?></small>
-                    </div>
-                  </div>
-                </div>
-              </div>
-          <!---Final de um card-->
+
+                  <?php
+                }
+              }
+            
+      // Final do trecho que faz a pesquisa com parametro passado no POST
+    //Final do trecho que traz as respostas das pesquisas
+
+
+    // Fechar a conexão
+            mysqli_close($conexao);
+            ?>
+            <!---Final de um card-->
+          </div>
         </div>
       </div>
-    </div>
-  </main>
-<footer>
-  <!-- Rodapé aqui -->
-</footer>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-  $(document).ready(function() {
-    function carregarDados() {
-      $.ajax({
-        url: 'pesquisa_estabelecimento.php',
-        method: 'GET',
-        dataType: 'html',
-        success: function(data) {
-          $('#estabelecimentos').html(data);
-        },
-        error: function(xhr, status, error) {
-          console.log('Erro na solicitação AJAX: ' + error);
+    </main>
+    <footer>
+      <!-- Rodapé aqui -->
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        function carregarDados() {
+          $.ajax({
+            url: 'pesquisa_estabelecimento.php',
+            method: 'GET',
+            dataType: 'html',
+            success: function(data) {
+              $('#estabelecimentos').html(data);
+            },
+            error: function(xhr, status, error) {
+              console.log('Erro na solicitação AJAX: ' + error);
+            }
+          });
         }
+
+        carregarDados();
+        setInterval(carregarDados, 5000);
       });
-    }
-
-    carregarDados();
-    setInterval(carregarDados, 5000);
-  });
 
 
-  $(document).ready(function() {
-    function carregarProduto() {
-      $.ajax({
-        url: 'pesquisa_produto.php',
-        method: 'GET',
-        dataType: 'html',
-        success: function(data) {
-          $('#produto').html(data);
-        },
-        error: function(xhr, status, error) {
-          console.log('Erro na solicitação AJAX: ' + error);
+      $(document).ready(function() {
+        function carregarProduto() {
+          $.ajax({
+            url: 'pesquisa_produto.php',
+            method: 'GET',
+            dataType: 'html',
+            success: function(data) {
+              $('#produto').html(data);
+            },
+            error: function(xhr, status, error) {
+              console.log('Erro na solicitação AJAX: ' + error);
+            }
+          });
         }
+
+        carregarProduto();
+
+        setInterval(carregarProduto, 5000)
       });
-    }
-
-    carregarProduto();
-
-    setInterval(carregarProduto, 5000)
-  });
 
 
-  $(document).ready(function() {
-    function carregarCategorias() {
-      $.ajax({
-        url: 'pesquisa_categorias.php',
-        method: 'GET',
-        dataType: 'html',
-        success: function(data) {
-          $('#subcategorias').html(data);
-        },
-        error: function(xhr, status, error) {
-          console.log('Erro na solicitação AJAX: ' + error);
+      $(document).ready(function() {
+        function carregarCategorias() {
+          $.ajax({
+            url: 'pesquisa_categorias.php',
+            method: 'GET',
+            dataType: 'html',
+            success: function(data) {
+              $('#subcategorias').html(data);
+            },
+            error: function(xhr, status, error) {
+              console.log('Erro na solicitação AJAX: ' + error);
+            }
+          });
         }
+
+        carregarCategorias();
+
+        setInterval(carregarCategorias, 5000)
       });
-    }
 
-    carregarCategorias();
+      function openNav() {
+        document.getElementById("mySidenav").style.width = "250px";
+        document.getElementById("main").style.marginLeft = "250px";
+        document.getElementById("h1").style.color = "white";
+      }
 
-    setInterval(carregarCategorias, 5000)
-  });
+      function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+        document.getElementById("main").style.marginLeft= "0";
+        document.getElementById("h1").style.color = "Black";
+      }
 
-  function openNav() {
-    document.getElementById("mySidenav").style.width = "250px";
-    document.getElementById("main").style.marginLeft = "250px";
-    document.getElementById("h1").style.color = "white";
-  }
+      function openCategoria() {
+        var subcategorias = document.getElementsByClassName('lista_categorias');
+        for (var i = 0; i < subcategorias.length; i++) {
+          subcategorias[i].style.display = 'block';
+        }
+      }
 
-  function closeNav() {
-    document.getElementById("mySidenav").style.width = "0";
-    document.getElementById("main").style.marginLeft= "0";
-    document.getElementById("h1").style.color = "Black";
-  }
-
-  function openCategoria() {
-    var subcategorias = document.getElementsByClassName('lista_categorias');
-    for (var i = 0; i < subcategorias.length; i++) {
-      subcategorias[i].style.display = 'block';
-    }
-  }
-
-  function closeCategoria() {
-    var subcategorias = document.getElementsByClassName('lista_categorias');
-    for (var i = 0; i < subcategorias.length; i++) {
-      subcategorias[i].style.display = 'none';
-    }
-  }
+      function closeCategoria() {
+        var subcategorias = document.getElementsByClassName('lista_categorias');
+        for (var i = 0; i < subcategorias.length; i++) {
+          subcategorias[i].style.display = 'none';
+        }
+      }
 
 
-</script>
+    </script>
 
   <!--<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper-core.min.js" integrity="sha384-QhJtrlyXT+YfjA/ov0U+O6wZi6U68MZkUmmI9Q0T3TGRnp6YOsJlLCFNYFOIQWIH" crossorigin="anonymous"></script>

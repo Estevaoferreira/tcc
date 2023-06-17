@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2023-05-25T18:18:36.365Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.1 Chrome/112.0.5615.87 Electron/24.1.2 Safari/537.36" etag="q45KCLLDdaYYceSOXY22" version="21.2.1" type="device" pages="3">
+<mxfile host="Electron" modified="2023-06-07T19:03:05.823Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.1 Chrome/112.0.5615.87 Electron/24.1.2 Safari/537.36" etag="D1bm3c5_v_ZGLvnsOynY" version="21.2.1" type="device" pages="3">
   <diagram name="Cliente" id="-fLTgROmnotpqfPD7KrV">
-    <mxGraphModel dx="2046" dy="733" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2899" dy="1246" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -12,8 +12,10 @@
         <mxCell id="nJGko37JBxsJlrp_rgi--14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="nJGko37JBxsJlrp_rgi--1" target="nJGko37JBxsJlrp_rgi--6" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="Xoj2JBchcT_UAn22fU_Y-2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="nJGko37JBxsJlrp_rgi--1" target="Xoj2JBchcT_UAn22fU_Y-1">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="Xoj2JBchcT_UAn22fU_Y-2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="nJGko37JBxsJlrp_rgi--1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-50" y="240" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
         <mxCell id="nJGko37JBxsJlrp_rgi--1" value="cadastro/login" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#99FF99;" parent="1" vertex="1">
           <mxGeometry x="30" y="200" width="120" height="80" as="geometry" />
@@ -45,7 +47,7 @@
         <mxCell id="nJGko37JBxsJlrp_rgi--22" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="nJGko37JBxsJlrp_rgi--16" target="nJGko37JBxsJlrp_rgi--21" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="98FRtYooVgI7Z1cPWIKy-3" value="" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;shape=link;" edge="1" parent="1" source="nJGko37JBxsJlrp_rgi--16" target="98FRtYooVgI7Z1cPWIKy-2">
+        <mxCell id="98FRtYooVgI7Z1cPWIKy-3" value="" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;shape=link;" parent="1" source="nJGko37JBxsJlrp_rgi--16" target="98FRtYooVgI7Z1cPWIKy-2" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="nJGko37JBxsJlrp_rgi--16" value="dashboard.php" style="whiteSpace=wrap;html=1;rounded=0;fillColor=#99FF99;" parent="1" vertex="1">
@@ -76,20 +78,14 @@
         <mxCell id="OBdbuybp2C_v1fgZbtni-1" value="update_cliente.php" style="ellipse;whiteSpace=wrap;html=1;fillColor=#66FF66;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="680" y="280" width="120" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="98FRtYooVgI7Z1cPWIKy-2" value="pesquisa_estabelecimento" style="rhombus;whiteSpace=wrap;html=1;fillColor=#99FF99;rounded=0;" vertex="1" parent="1">
+        <mxCell id="98FRtYooVgI7Z1cPWIKy-2" value="pesquisa_estabelecimento" style="rhombus;whiteSpace=wrap;html=1;fillColor=#99FF99;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="400" y="80" width="200" height="80" as="geometry" />
-        </mxCell>
-        <mxCell id="Xoj2JBchcT_UAn22fU_Y-1" value="Home" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#99FF99;" vertex="1" parent="1">
-          <mxGeometry x="-170" y="200" width="120" height="80" as="geometry" />
-        </mxCell>
-        <mxCell id="Xoj2JBchcT_UAn22fU_Y-3" value="&lt;h1&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Home&lt;/span&gt;&lt;/h1&gt;&lt;h1 style=&quot;line-height: 60%;&quot;&gt;&lt;span style=&quot;background-color: initial; font-size: 12px; font-weight: normal;&quot;&gt;Nessa tela o usuário poderá visualizar empresas e produtos sem a necessidade de fazer cadastro&lt;/span&gt;&lt;br&gt;&lt;/h1&gt;" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="-260" y="318.5" width="190" height="141.5" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
   <diagram id="FP6vAjrer5khvVGKEKZG" name="Estabelecimento">
-    <mxGraphModel dx="942" dy="566" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1036" dy="623" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -181,25 +177,25 @@
         <mxCell id="RS2VWW0FosAvPTRkOz8A-3" value="&lt;h1 style=&quot;border-color: var(--border-color);&quot;&gt;Estátisticas a serem mostradas&lt;/h1&gt;&lt;p&gt;&lt;/p&gt;&lt;ol&gt;&lt;li&gt;Quantidade de usuários que &#39;favoritaram&#39; o estabelecimento&lt;/li&gt;&lt;li&gt;Quantidade de usuários que clicaram em determinado produto.&lt;/li&gt;&lt;li&gt;Quantidade de usuários que clicaram no botão de whatsapp&lt;/li&gt;&lt;li&gt;Meus produtos cadastrados e online&lt;/li&gt;&lt;/ol&gt;&lt;p&gt;&lt;/p&gt;" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="200" y="800" width="190" height="270" as="geometry" />
         </mxCell>
-        <mxCell id="76ss8hYp1w8U7wjH3tY_-4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="RS2VWW0FosAvPTRkOz8A-6" target="76ss8hYp1w8U7wjH3tY_-3">
+        <mxCell id="76ss8hYp1w8U7wjH3tY_-4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="RS2VWW0FosAvPTRkOz8A-6" target="76ss8hYp1w8U7wjH3tY_-3" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="RS2VWW0FosAvPTRkOz8A-6" value="produtos" style="whiteSpace=wrap;html=1;rounded=0;fillColor=#66FF66;" parent="1" vertex="1">
           <mxGeometry x="480" y="121" width="160" height="79" as="geometry" />
         </mxCell>
-        <mxCell id="76ss8hYp1w8U7wjH3tY_-6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fillColor=#66FF66;" edge="1" parent="1" source="76ss8hYp1w8U7wjH3tY_-3" target="76ss8hYp1w8U7wjH3tY_-5">
+        <mxCell id="76ss8hYp1w8U7wjH3tY_-6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fillColor=#66FF66;" parent="1" source="76ss8hYp1w8U7wjH3tY_-3" target="76ss8hYp1w8U7wjH3tY_-5" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="76ss8hYp1w8U7wjH3tY_-3" value="Adicionar produto" style="whiteSpace=wrap;html=1;rounded=0;fillColor=#66FF66;" vertex="1" parent="1">
+        <mxCell id="76ss8hYp1w8U7wjH3tY_-3" value="Adicionar produto" style="whiteSpace=wrap;html=1;rounded=0;fillColor=#66FF66;" parent="1" vertex="1">
           <mxGeometry x="680" y="40" width="160" height="81" as="geometry" />
         </mxCell>
-        <mxCell id="76ss8hYp1w8U7wjH3tY_-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;shape=link;" edge="1" parent="1" source="76ss8hYp1w8U7wjH3tY_-5" target="76ss8hYp1w8U7wjH3tY_-7">
+        <mxCell id="76ss8hYp1w8U7wjH3tY_-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;shape=link;" parent="1" source="76ss8hYp1w8U7wjH3tY_-5" target="76ss8hYp1w8U7wjH3tY_-7" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="76ss8hYp1w8U7wjH3tY_-5" value="insere produto" style="ellipse;whiteSpace=wrap;html=1;fillColor=#66FF66;rounded=0;" vertex="1" parent="1">
+        <mxCell id="76ss8hYp1w8U7wjH3tY_-5" value="insere produto" style="ellipse;whiteSpace=wrap;html=1;fillColor=#66FF66;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="960" y="40" width="120" height="80.5" as="geometry" />
         </mxCell>
-        <mxCell id="76ss8hYp1w8U7wjH3tY_-7" value="&lt;h1 style=&quot;line-height: 80%;&quot;&gt;&lt;ol&gt;&lt;li style=&quot;text-align: justify; font-size: 13px;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;&lt;font color=&quot;#66ff66&quot;&gt;inserir na tabela produtos o produto com as infromações completas com excessão de ingredientes e categorias&lt;/font&gt;&lt;/span&gt;&lt;/li&gt;&lt;li style=&quot;text-align: justify; font-size: 13px;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;&lt;font color=&quot;#66ff66&quot;&gt;Pesquisa na tabela produto pelo código do último produto inserido&lt;/font&gt;&lt;/span&gt;&lt;/li&gt;&lt;li style=&quot;text-align: justify; font-size: 13px;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;&lt;font color=&quot;#66ff66&quot;&gt;Com esse código é inserido na tabela produto_categarias a(s) categoria(s) do produto relacionadas com o código pego no passo 2.&lt;/font&gt;&lt;/span&gt;&lt;/li&gt;&lt;li style=&quot;text-align: justify; font-size: 13px;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;&lt;font color=&quot;#66ff66&quot;&gt;Pesquisa na tabela ingrediente se existe o ingrediente com o mesmo nome do(s) ingrediente(s) pegos do formulário, caso exista o ingrediente eu pego o codigo desse ingrediente, caso não exista eu insiro esse ingrediente na tabela ingrediente.&lt;/font&gt;&lt;/span&gt;&lt;/li&gt;&lt;li style=&quot;text-align: justify; font-size: 13px;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;&lt;font color=&quot;#66ff66&quot;&gt;Para relacionar esse ingrediente com o produto que contém esse ingrediente eu insiro na tabela produto_ingrediente o cod do produto pego anteriormente e que acabou&amp;nbsp; de ser inserido insiro ele junto com os ingredientes na tabela ingrediente.&lt;/font&gt;&lt;/span&gt;&lt;/li&gt;&lt;/ol&gt;&lt;/h1&gt;" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
+        <mxCell id="76ss8hYp1w8U7wjH3tY_-7" value="&lt;h1 style=&quot;line-height: 80%;&quot;&gt;&lt;ol&gt;&lt;li style=&quot;text-align: justify; font-size: 13px;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;&lt;font color=&quot;#66ff66&quot;&gt;inserir na tabela produtos o produto com as infromações completas com excessão de ingredientes e categorias&lt;/font&gt;&lt;/span&gt;&lt;/li&gt;&lt;li style=&quot;text-align: justify; font-size: 13px;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;&lt;font color=&quot;#66ff66&quot;&gt;Pesquisa na tabela produto pelo código do último produto inserido&lt;/font&gt;&lt;/span&gt;&lt;/li&gt;&lt;li style=&quot;text-align: justify; font-size: 13px;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;&lt;font color=&quot;#66ff66&quot;&gt;Com esse código é inserido na tabela produto_categarias a(s) categoria(s) do produto relacionadas com o código pego no passo 2.&lt;/font&gt;&lt;/span&gt;&lt;/li&gt;&lt;li style=&quot;text-align: justify; font-size: 13px;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;&lt;font color=&quot;#66ff66&quot;&gt;Pesquisa na tabela ingrediente se existe o ingrediente com o mesmo nome do(s) ingrediente(s) pegos do formulário, caso exista o ingrediente eu pego o codigo desse ingrediente, caso não exista eu insiro esse ingrediente na tabela ingrediente.&lt;/font&gt;&lt;/span&gt;&lt;/li&gt;&lt;li style=&quot;text-align: justify; font-size: 13px;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;&lt;font color=&quot;#66ff66&quot;&gt;Para relacionar esse ingrediente com o produto que contém esse ingrediente eu insiro na tabela produto_ingrediente o cod do produto pego anteriormente e que acabou&amp;nbsp; de ser inserido insiro ele junto com os ingredientes na tabela ingrediente.&lt;/font&gt;&lt;/span&gt;&lt;/li&gt;&lt;/ol&gt;&lt;/h1&gt;" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="1180" y="70" width="430" height="300" as="geometry" />
         </mxCell>
       </root>

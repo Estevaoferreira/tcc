@@ -3,18 +3,19 @@
 require_once "../conexao.php";
 
 // obtém os valores do CPF, nome, telefone, e-mail e senha do formulário
-echo "<br>".$cnpj            = $_POST["cnpj"];
-echo "<br>".$nome           = $_POST["nome"];
-echo "<br>".$telefone       = $_POST["telefone"];
-echo "<br>".$email          = $_POST["email"];
-echo "<br>".$senha          = $_POST['senha'];
-echo "<br>".$estado         = $_POST["estado"];
-echo "<br>".$cidade         = $_POST['cidade'];
-echo "<br>".$bairro         = $_POST['bairro'];
-echo "<br>".$logradouro     = $_POST['logradouro'];
-echo "<br>".$cep            = $_POST['cep'];
-echo "<br>".$numero         = $_POST['numero'];
-echo "<br>".$complemento    = $_POST['complemento'];
+echo "<br>".$cnpj                   = $_POST["cnpj"];
+echo "<br>".$nome                   = $_POST["nome"];
+echo "<br>".$telefone               = $_POST["telefone"];
+echo "<br>".$email                  = $_POST["email"];
+echo "<br>".$senha                  = $_POST['senha'];
+echo "<br>".$estado                 = $_POST["estado"];
+echo "<br>".$cidade                 = $_POST['cidade'];
+echo "<br>".$bairro                 = $_POST['bairro'];
+echo "<br>".$logradouro             = $_POST['logradouro'];
+echo "<br>".$cep                    = $_POST['cep'];
+echo "<br>".$numero                 = $_POST['numero'];
+echo "<br>".$complemento            = $_POST['complemento'];
+echo "<br>".$categorias_cliente     = $_POST['categorias_cliente']; //array que será tratado diferente
 
 // Gera um hash seguro para a senha
 $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
@@ -35,6 +36,7 @@ if (mysqli_query($conexao, $sql)) {
     exit();
 } else {
     echo "Erro ao adicionar novo cliente: " . mysqli_error($conexao);
+    header("Location: entre_business.php");
 }
 
 // Fecha a conexão com o banco de dados

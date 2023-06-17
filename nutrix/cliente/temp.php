@@ -226,3 +226,127 @@
   </script>-->
 </body>
 </html>
+
+
+
+
+
+
+
+
+<?php
+session_start();
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link rel="shortcut icon" type="image/x-icon" href="../img/icones/todos/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="../estilos/estilo.css">
+    <link href="../estilos/bootstrap-exemplos/assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .categoria-cloud {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+      }
+
+      .categoria-btn {
+          padding: 8px 16px;
+          background-color: #f0f0f0;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+      }
+
+      .categoria-btn.selected {
+          background-color: #99ccff;
+          color: white;
+      }
+
+
+      button[type="submit"] {
+          margin-top: 10px;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+          padding: 8px 16px;
+          background-color: royalblue;
+          color:white;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+      }
+
+
+  </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-group">
+            <label for="categorias">
+                <h1>Escolha as restrições das quais você se identifica</h1>
+            </label>
+            <div class="category-cloud">
+              <div class="categoria-cloud">
+                <?php
+                        // Conexão com o banco de dados
+                require_once "../conexao.php";
+                        // Verificar a conexão
+                if (!$conexao) {
+                    die('Erro ao conectar ao banco de dados: ' . mysqli_connect_error());
+                }
+
+                        // Consulta para obter as categorias
+                $sql = "SELECT cod, nome FROM categoria WHERE tipo = 'cliente'";
+                $result = mysqli_query($conexao, $sql);
+
+                        // Exibir as opções do select
+                while ($row = mysqli_fetch_assoc($result)) {
+                    echo '<button class="categoria-btn" data-categoria="'.$row['nome'].'" data-value="'.$row['cod'].'">+'.$row['nome'].'</button>';
+                }
+
+                        // Fechar a conexão com o banco de dados
+                mysqli_close($conexao);
+                ?>
+            </div>
+        </div>
+
+        <form id="category-form" action="seu_backend.php" method="POST">
+          <input type="hidden" id="selected-categories" name="selectedCategories" value="">
+          <button type="submit">Enviar</button>
+      </form>
+
+
+      <script>
+        // Selecionar/desselecionar categoria ao clicar
+        document.addEventListener('click', function(event) {
+          if (event.target.classList.contains('category-option')) {
+            event.target.classList.toggle('selected');
+        }
+    });
+
+// Armazenar categorias selecionadas em uma SESSION
+        document.getElementById('category-form').addEventListener('submit', function(event) {
+          event.preventDefault();
+          var selectedCategories = Array.from(document.getElementsByClassName('category-option selected')).map(function(category) {
+            return category.innerText;
+        });
+          document.getElementById('selected-categories').value = selectedCategories.join(', ');
+          this.submit();
+      });
+
+  </script>
+
+</body>
+</html>

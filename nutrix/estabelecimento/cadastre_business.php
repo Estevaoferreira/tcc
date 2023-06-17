@@ -172,6 +172,32 @@
 
 			<label for="complemento">Complemento:</label>
 			<input type="text" id="complemento" name="complemento">
+
+
+			<label for="categorias">Empresa com produtos destinados para grupos de pesssoas com as seguintes restrições: </label>
+			<select id="categorias" name="categorias_cliente[]" multiple class="select">
+				<?php
+    // Conexão com o banco de dados
+				require_once "../conexao.php";
+              // Verificar a conexão
+				if (!$conexao) {
+					die('Erro ao conectar ao banco de dados: ' . mysqli_connect_error());
+				}
+
+    // Consulta para obter as categorias
+				$sql = "SELECT cod, nome FROM categoria WHERE tipo = 'cliente'";
+				$result = mysqli_query($conexao, $sql);
+
+    // Exibir as opções do select
+				while ($row = mysqli_fetch_assoc($result)) {
+					echo '<option value="' . $row['cod'] . '">' . $row['nome'] . '</option>';
+				}
+
+    // Fechar a conexão com o banco de dados
+				$result->close();
+				?>
+			</select>
+
 			<button type="submit">Enviar</button>
 		</form>
 	</div>

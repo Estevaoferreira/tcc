@@ -9,6 +9,7 @@
   <link rel="stylesheet" type="text/css" href="../estilos/estilo.css">
   <style>
     /* Estilo para a página */
+    
     body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -161,7 +162,7 @@
         <thead>
           <tr>
             <th>Nome</th>
-            <th>Tipo</th>
+            
             <th>Foto</th>
             <th>Preço</th>
             <th></th>
@@ -185,7 +186,7 @@
             echo "<td>{$row['cod']}</td>";
             echo "<td><img src='{$row['foto']}' alt='Foto do Produto'></td>";
             echo "<td>{$row['valor']}</td>";
-            echo "<td><a href='alterar_produto.php' class='add-button'><img = src=''></a></td>";
+            echo "<td><a href='alterar_produto.php?cod=".$row['cod']."' target='_blank' class='add-button'><img = src=''>Alterar poroduto</a></td>";
             echo "</tr>";
           }
           ?>

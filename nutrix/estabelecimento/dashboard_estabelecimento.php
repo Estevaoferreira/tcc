@@ -12,6 +12,10 @@
       margin: 0;
       padding: 0;
     }
+    body{
+      font-family: 'Roboto', sans-serif;
+      background-color: #82BF56;
+    }
     header {
       background-color: white;
       color: black;
